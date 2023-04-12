@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  - var cat=[{cat_name:"persian",cat_color:"yellow",cat_weight:4},{cat_name:"ragdoll",cat_color:"white",cat_weight:8},{cat_name:"birman",cat_color:"brown",cat_weight:7}]
+  div(class="container-fluid")
+  div(class="row")
+   each c,index  in cat
+    div(class="col-sm-2" onclick =`buy(${index})`) #{c.cat_name}, #{c.cat_color}, #{c.cat_weight}
+    script.
+        function buy(a)
+        {
+            alert(`You purchased Item ${a+1}`)
+        }
