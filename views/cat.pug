@@ -2,7 +2,9 @@ extends layout
 
 block content
   h1= title
-  - var cat=[{cat_name:"persian",cat_color:"yellow",cat_weight:4},{cat_name:"ragdoll",cat_color:"white",cat_weight:8},{cat_name:"birman",cat_color:"brown",cat_weight:7}]
+  - var cat = results;
+
+
   div(class="container-fluid")
   div(class="row")
    each c,index  in cat

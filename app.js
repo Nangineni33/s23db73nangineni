@@ -4,11 +4,58 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var catRouter = require('./routes/cat');
 var boardRouter = require('./routes/board');
-var selectRouter=require('./routes/selector')
+var selectRouter=require('./routes/selector');
+var cat = require("./models/cat");
+var resourceRouter = require('./routes/resource');
+
+// We can seed the collection if needed on server start
+async function recreateDB(){
+// Delete everything
+await cat.deleteMany();
+let instance1 = new
+cat({cat_name:"ghost", cat_color:'large',
+cat_weight:15.4});
+
+
+
+let instance2 = new
+cat({cat_name:"ghost1", cat_color:'medium',
+cat_weight:15.5});
+let instance3 = new
+cat({cat_name:"ghost2", cat_color:'small',
+cat_weight:15.6});
+instance1.save().then(doc=>{
+console.log("First object saved")}
+).catch(err=>{
+console.error(err)
+});
+instance2.save().then(doc=>{
+  console.log("second object saved")}
+  ).catch(err=>{
+  console.error(err)
+  });
+  instance3.save().then(doc=>{
+    console.log("third object saved")}
+    ).catch(err=>{
+    console.error(err)
+    });
+}
+let reseed = true;
+if (reseed) {recreateDB();}
+
+
 
 var app = express();
 
@@ -27,6 +74,13 @@ app.use('/users', usersRouter);
 app.use('/cat', catRouter);
 app.use('/board',boardRouter);
 app.use('/selector',selectRouter);
+app.use('/resource', resourceRouter);
+
+
+
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
