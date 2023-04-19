@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1= title
+  - let catid = toShow._id
+  - let cat_name = toShow.cat_name
+  - let cat_color = toShow.cat_color
+  - let cat_weight = toShow.cat_weight
+
+  div
+    div.row
+      div(class='catAttr mr-3') cat ID is:
+      div #{catid}
+    div.row
+      div(class='catAttr mr-3') cat name is:
+      div #{cat_name}
+    div.row
+      div(class='catAttr mr-3') cat color is:
+      div #{cat_color}
+    div.row
+      div(class='catAttr mr-3') cat weight is:
+      div #{cat_weight}
