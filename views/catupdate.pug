@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= title
+  - let catid = toShow._id
+  - let cat_name = toShow.cat_name
+  - let cat_color = toShow.cat_color
+  - let cat_weight = toShow.cat_weight
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{catid}
+  - let actionid = "/resource/cat/" + catid
+  form(id='catForm', action= actionid, method="PUT")
+    div.form-group
+      label.catAttr(for='cat_name') cat_name
+      input#cat_name(type='text', name='cat_name', value= cat_name )
+    div.form-group
+      label.catAttr(for='cat_color') cat_color
+      input#cat_color(type='text', name='cat_color', value= cat_color )
+    div.form-group
+      label.catAttr(for='cat_weight') cat_weight
+      input#cat_weight(type='number', name='cat_weight', value= cat_weight )
+    input(type="submit")
+    script.
+      document.forms['catForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show user that form is being submitted
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Update succeded")
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Update failed " + error )
+        });
+      });
