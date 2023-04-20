@@ -12,11 +12,11 @@ a {
   width: 120px;
   }
 
-.catAttr{
-  background-color: rgb(127, 176, 255);
-  width: 120px;
-}
-.h2{
-  color:bisque;
-}
-  
+  .catAttr{
+    background-color: rgb(127, 176, 255);
+    width: 120px;
+  }
+  h1 {
+    color:rgb(236, 139, 66);
+  }
+    
