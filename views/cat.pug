@@ -1,16 +1,16 @@
 extends layout
 
 block content
+  - let cats  = results
   h1= title
-  - var cat = results;
-
-
   div(class="container-fluid")
-  div(class="row")
-   each c,index  in cat
-    div(class="col-sm-2" onclick =`buy(${index})`) #{c.cat_name}, #{c.cat_color}, #{c.cat_weight}
-    script.
-        function buy(a)
-        {
-            alert(`You purchased Item ${a+1}`)
-        }
+  div(class="row m-1")
+    each cat in cats 
+      - let destination = `dispatch(\"/cat/update?id=${cat._id}\")`
+      div(class="row-sm-2", class="m-1") cat #{cat.cat_name}(#{cat.cat_color}) is #{cat.cat_weight} 
+        button.btn( class="btn-primary ml-1", onclick= destination) Update
+
+  script.
+    function dispatch(path){
+      window.location.href=path
+    }
