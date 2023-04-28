@@ -1,16 +1,21 @@
-extends layout
+- let Gallery = results
+h1= title
+- let create = `dispatch(\"/gallery/create\")`
+button.btn(class="btn-info", onclick=create) Add new gallery
 
-block content
-  - let cats  = results
-  h1= title
-  div(class="container-fluid")
+div(class="container-fluid")
   div(class="row m-1")
-    each cat in cats 
-      - let destination = `dispatch(\"/cat/update?id=${cat._id}\")`
-      div(class="row-sm-2", class="m-1") cat #{cat.cat_name}(#{cat.cat_color}) is #{cat.cat_weight} 
-        button.btn( class="btn-primary ml-1", onclick= destination) Update
+    each gallery in Gallery
+      - let destination = `dispatch(\"/gallery/update?id=${gallery._id}\")`
+      - let detail = `dispatch(\"/gallery/detail/?id=${gallery._id}")`
+      - let deletegallery = `dispatch(\"/gallery/delete/?id=${gallery._id}")`      
+      div(class="row-sm-2", class="m-1") 
+        | #{gallery.gallery_name} (#{gallery.size}) is #{gallery.cost}
+        button.btn(class="btn-primary ml-1", onclick=destination) Update
+        button.btn(class="btn-success", onclick=detail) Details
+        button.btn(class="btn-dark", onclick=deletegallery) Delete
 
-  script.
-    function dispatch(path){
-      window.location.href=path
-    }
+script.
+  function dispatch(path){
+    window.location.href = path
+  }

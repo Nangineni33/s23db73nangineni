@@ -7,7 +7,6 @@ module.exports = router;
 /* GET detail cat page */
 router.get('/detail', cat_controlers.cat_view_one_Page);
 /* GET create cat page */
-router.get('/create', cat_controlers.cat_create_Page);
 /* GET create update page */
 //A little function to check if we have an authorized user and continue on
 //or
@@ -19,9 +18,10 @@ const secured = (req, res, next) => {
     req.session.returnTo = req.originalUrl;
     res.redirect("/login");
 }
+router.get('/create', secured,cat_controlers.cat_create_Page);
 router.get('/update', secured, cat_controlers.cat_update_Page);
 /* GET delete costume page */
-router.get('/delete', cat_controlers.cat_delete_Page);
+router.get('/delete', secured,cat_controlers.cat_delete_Page);
 
 
 
